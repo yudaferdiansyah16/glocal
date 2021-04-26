@@ -1,0 +1,49 @@
+table.dataTable th.focus,
+table.dataTable td.focus {
+    outline: none;
+}
+
+.x-readonly {
+    background-color: white !important;
+}
+
+.x-hidden {
+    display: none;
+}
+
+.x-check-cell {
+    width: 26px !important;
+    margin-left: 4px !important;
+}
+.x-check-modal {
+    margin-right: 0 !important;
+}
+/*.x-check-input{
+    position: relative !important;
+}*/
+
+.modal-fullscreen{
+    background-color: #fff !important;
+}
+.modal-fullscreen .modal-content{
+    background: none !important;
+    border: 0 !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+table.dataTable tbody td.focus {
+    -webkit-box-shadow: inset 0 0 0 0 transparent !important;
+    background: none !important;
+}
+div.dataTables_scrollHeadInner { margin-left: 0px !important; margin-right: 10px !important;}
+
+.input-group-append{
+    z-index: 0;
+}
+.page-logo img{
+    width: auto !important;
+}
+dt{
+    font-size: 12px;
+    margin-top: 7px;
+}

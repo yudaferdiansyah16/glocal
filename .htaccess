@@ -1,0 +1,51 @@
+<IfModule mod_headers.c>
+    <FilesMatch "\.(eot|font.css|otf|ttc|ttf|woff)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+<IfModule mod_mime.c>
+# Web fonts
+AddType application/font-woff woff
+AddType application/vnd.ms-fontobject eot
+
+# Browsers usually ignore the font MIME types and sniff the content,
+# however, Chrome shows a warning if other MIME types are used for the
+# following fonts.
+AddType application/x-font-ttf ttc ttf
+AddType font/opentype otf
+
+# Make SVGZ fonts work on iPad:
+# https://twitter.com/FontSquirrel/status/14855840545
+AddType     image/svg+xml svg svgz
+AddEncoding gzip svgz
+
+</IfModule>
+
+# rewrite www.example.com → example.com
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymLinks
+    RewriteEngine on
+
+    # Redirects direct master views to the right URL
+    # Not so much for security, done for Coda previews
+    RewriteRule modules/(.+)/controllers/(.+)\.php$ /index.php/$1/$2 [L,R=301]
+    RewriteRule controllers/(.+)\.php$ /index.php/$1 [L,R=301]
+
+    # Remove the .html extention if present (and not an existing file)
+    RewriteCond %{REQUEST_URI} ^(.*)\.html$
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)\.html$ index.php/$1 [L]
+
+    # Send request via index.php (again, not if its a real file or folder)
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+</IfModule>
